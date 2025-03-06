@@ -9,7 +9,7 @@
 
 ### Discrete, dependable generated code repository
 
-Iota provides ...
+Iota provides a simple mechanism for storing, retrieving and loading generated code.
 
 _Get news and updates on the [DecodeLabs blog](https://blog.decodelabs.com)._
 
@@ -25,7 +25,42 @@ composer require decodelabs/iota
 
 ## Usage
 
-Coming soon...
+Load a repository:
+
+```php
+use DecodeLabs\Iota;
+
+// Load manually
+$repo = Iota::load('name', '/path/to/repo');
+
+// Load an app-level repository only writable in dev mode
+$repo = Iota::loadStatic('name');
+
+// Load a writable app-level repository
+$repo = Iota::loadDynamic('name');
+```
+
+Then you can store and retrieve code:
+
+```php
+// Store anything
+$repo->store(
+    'key',
+    <<<'PHP'
+    <?php
+    return 'Hello, world!';
+    PHP
+);
+
+// Retrieve code
+$code = $repo->fetch('key');
+
+// Include quietly
+$repo->include('key');
+
+// Include and return
+$value = $repo->Return('key'); // 'Hello, world!'
+```
 
 ## Licensing
 
