@@ -10,7 +10,10 @@ declare(strict_types=1);
 namespace DecodeLabs\Iota;
 
 use DecodeLabs\Atlas\Dir;
+use DecodeLabs\Coercion;
 use DecodeLabs\Exceptional;
+use Generator;
+use Throwable;
 
 class Repository {
 
@@ -28,6 +31,18 @@ class Repository {
         $this->mutable = $mutable;
 
         $this->dir->ensureExists();
+    }
+
+    public function has(
+        string $key
+    ): bool {
+        try {
+            $this->checkKey($key);
+        } catch(Throwable $e) {
+            return false;
+        }
+
+        return $this->dir->getFile($key)->exists();
     }
 
     public function store(
@@ -60,6 +75,15 @@ class Repository {
         return $file->getContents();
     }
 
+    /**
+     * @return Generator<string>
+     */
+    public function scan(
+        ?callable $filter = null
+    ): Generator {
+        return $this->dir->scanNames($filter);
+    }
+
     public function include(
         string $key
     ): void {
@@ -90,6 +114,28 @@ class Repository {
         }
 
         return require $file->getPath();
+    }
+
+    /**
+     * @template T of object
+     * @param string $key
+     * @param class-string<T> $type
+     * @return T
+     */
+    public function returnAsType(
+        string $key,
+        string $type
+    ): object {
+        $output = $this->return($key);
+
+        try {
+            return Coercion::asType($output, $type);
+        } catch(Throwable $e) {
+            throw Exceptional::UnexpectedValue(
+                message: 'Iota repository \'' . $this->name . '\' returned unexpected value for \'' . $key . '\': ' . $e->getMessage(),
+                data: $output
+            );
+        }
     }
 
     private function checkKey(
