@@ -20,13 +20,13 @@ class Iota implements Proxy
 
     protected static Inst $_veneerInstance;
 
-    public static function loadRepository(string $name, Ref0|string $dir): Ref1 {
-        return static::$_veneerInstance->loadRepository(...func_get_args());
+    public static function load(string $name, Ref0|string $dir): Ref1 {
+        return static::$_veneerInstance->load(...func_get_args());
     }
-    public static function loadStaticAppRepository(string $name, ?bool $mutable = NULL): Ref1 {
-        return static::$_veneerInstance->loadStaticAppRepository(...func_get_args());
+    public static function loadStatic(string $name, ?bool $mutable = NULL): Ref1 {
+        return static::$_veneerInstance->loadStatic(...func_get_args());
     }
-    public static function loadDynamicAppRepository(string $name): Ref1 {
-        return static::$_veneerInstance->loadDynamicAppRepository(...func_get_args());
+    public static function loadDynamic(string $name): Ref1 {
+        return static::$_veneerInstance->loadDynamic(...func_get_args());
     }
 };
