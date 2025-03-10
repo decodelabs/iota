@@ -14,6 +14,7 @@
         "decodelabs/atlas": "^0.12.4",
         "decodelabs/coercion": "^0.3.1",
         "decodelabs/exceptional": "^0.5.3",
+        "decodelabs/hatch": "^0.1.0",
         "decodelabs/veneer": "^0.12.6"
     },
     "require-dev": {

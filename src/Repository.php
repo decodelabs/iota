@@ -12,6 +12,9 @@ namespace DecodeLabs\Iota;
 use DecodeLabs\Atlas\Dir;
 use DecodeLabs\Coercion;
 use DecodeLabs\Exceptional;
+use DecodeLabs\Hatch;
+use DecodeLabs\Hatch\Representation\StaticExpression as StaticExpressionRepresentation;
+use DecodeLabs\Hatch\Proxy\StaticExpression as StaticExpressionProxy;
 use Generator;
 use Throwable;
 
@@ -59,6 +62,24 @@ class Repository {
 
         $file = $this->dir->getFile($key);
         $file->putContents($code);
+    }
+
+    /**
+     * @param array<int|string,bool|float|int|array<mixed>|string|StaticExpressionRepresentation|StaticExpressionProxy|null> $data
+     */
+    public function storeStaticArray(
+        string $key,
+        array $data
+    ): void {
+        $export = Hatch::exportStaticArray($data);
+
+        $this->store(
+            $key,
+            <<<PHP
+            <?php
+            return {$export};
+            PHP
+        );
     }
 
     public function fetch(
