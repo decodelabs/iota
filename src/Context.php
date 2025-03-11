@@ -26,7 +26,7 @@ class Context {
     ) {
         if($staticDir === null) {
             if(class_exists(Genesis::class)) {
-                $staticDir = Genesis::$hub->applicationPath;
+                $staticDir = Genesis::$build->path;
             } else {
                 $staticDir = getcwd();
             }

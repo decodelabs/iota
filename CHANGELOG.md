@@ -1,3 +1,6 @@
+## v0.2.0 (2025-03-11)
+* Use static dir from build path
+
 ## v0.1.2 (2025-03-10)
 * Added static array export support
 
