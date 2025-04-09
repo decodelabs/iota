@@ -14,19 +14,21 @@
         "decodelabs/atlas": "^0.12.4",
         "decodelabs/coercion": "^0.3.1",
         "decodelabs/exceptional": "^0.5.3",
-        "decodelabs/hatch": "^0.1.0",
+        "decodelabs/hatch": "^0.1",
+        "decodelabs/monarch": "^0.1.1",
         "decodelabs/veneer": "^0.12.6"
     },
     "require-dev": {
         "decodelabs/phpstan-decodelabs": "^0.7.0",
-        "decodelabs/genesis": "^0.11.1"
+        "decodelabs/genesis": "^0.12.1"
     },
     "autoload": {
         "psr-4": {
-            "DecodeLabs\\Iota\\": "src/"
+            "DecodeLabs\\Iota\\": "src/Iota",
+            "DecodeLabs\\Genesis\\": "src/Genesis"
         },
         "files": [
-            "src/Context.php"
+            "src/Iota/Context.php"
         ]
     },
     "extra": {
