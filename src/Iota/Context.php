@@ -11,8 +11,8 @@ namespace DecodeLabs\Iota;
 
 use DecodeLabs\Atlas;
 use DecodeLabs\Atlas\Dir;
-use DecodeLabs\Genesis;
 use DecodeLabs\Iota;
+use DecodeLabs\Monarch;
 use DecodeLabs\Veneer;
 
 class Context {
@@ -25,23 +25,15 @@ class Context {
         ?Dir $dynamicDir = null
     ) {
         if($staticDir === null) {
-            if(class_exists(Genesis::class)) {
-                $staticDir = Genesis::$build->path;
-            } else {
-                $staticDir = getcwd();
-            }
-
-            $staticDir = Atlas::dir($staticDir.'/.iota');
+            $staticDir = Atlas::dir(
+                Monarch::$paths->run.'/.iota'
+            );
         }
 
         if($dynamicDir === null) {
-            if(class_exists(Genesis::class)) {
-                $dynamicDir = Genesis::$hub->localDataPath.'/iota';
-            } else {
-                $dynamicDir = sys_get_temp_dir().'/decodelabs/iota';
-            }
-
-            $dynamicDir = Atlas::dir($dynamicDir);
+            $dynamicDir = Atlas::dir(
+                Monarch::$paths->localData.'/iota'
+            );
         }
 
         $this->staticDir = $staticDir;
@@ -63,18 +55,10 @@ class Context {
         string $name,
         ?bool $mutable = null
     ): Repository {
-        if($mutable === null) {
-            if(class_exists(Genesis::class)) {
-                $mutable = Genesis::$environment->isDevelopment();
-            } else {
-                $mutable = false;
-            }
-        }
-
         return new Repository(
             name: $name,
             dir: $this->staticDir->getDir($name),
-            mutable: $mutable
+            mutable: $mutable ?? Monarch::isDevelopment()
         );
     }
 

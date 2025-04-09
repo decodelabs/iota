@@ -1,3 +1,7 @@
+## v0.2.1 (2025-04-09)
+* Replaced Genesis info with Monarch
+* Added Genesis Build Provider
+
 ## v0.2.0 (2025-03-11)
 * Use static dir from build path
 
