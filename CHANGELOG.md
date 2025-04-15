@@ -1,3 +1,6 @@
+## v0.2.2 (2025-04-15)
+* Added remove() and purge() to repos
+
 ## v0.2.1 (2025-04-09)
 * Replaced Genesis info with Monarch
 * Added Genesis Build Provider

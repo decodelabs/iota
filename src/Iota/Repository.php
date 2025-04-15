@@ -96,6 +96,35 @@ class Repository {
         return $file->getContents();
     }
 
+    public function remove(
+        string $key
+    ): void {
+        if(!$this->mutable) {
+            throw Exceptional::Runtime(
+                'Iota repository \'' . $this->name . '\' is read only'
+            );
+        }
+
+        $this->checkKey($key);
+
+        $file = $this->dir->getFile($key);
+
+        if($file->exists()) {
+            $file->delete();
+        }
+    }
+
+    public function purge(): void
+    {
+        if(!$this->mutable) {
+            throw Exceptional::Runtime(
+                'Iota repository \'' . $this->name . '\' is read only'
+            );
+        }
+
+        $this->dir->emptyOut();
+    }
+
     /**
      * @return Generator<string>
      */
