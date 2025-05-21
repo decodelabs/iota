@@ -147,7 +147,7 @@ class Repository {
             );
         }
 
-        require $file->getPath();
+        require $file->path;
     }
 
     public function return(
@@ -163,7 +163,7 @@ class Repository {
             );
         }
 
-        return require $file->getPath();
+        return require $file->path;
     }
 
     /**
