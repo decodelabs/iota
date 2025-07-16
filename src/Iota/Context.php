@@ -15,24 +15,24 @@ use DecodeLabs\Iota;
 use DecodeLabs\Monarch;
 use DecodeLabs\Veneer;
 
-class Context {
-
-    protected(set) Dir $staticDir;
-    protected(set) Dir $dynamicDir;
+class Context
+{
+    public protected(set) Dir $staticDir;
+    public protected(set) Dir $dynamicDir;
 
     public function __construct(
         ?Dir $staticDir = null,
         ?Dir $dynamicDir = null
     ) {
-        if($staticDir === null) {
+        if ($staticDir === null) {
             $staticDir = Atlas::dir(
-                Monarch::$paths->run.'/.iota'
+                Monarch::$paths->run . '/.iota'
             );
         }
 
-        if($dynamicDir === null) {
+        if ($dynamicDir === null) {
             $dynamicDir = Atlas::dir(
-                Monarch::$paths->localData.'/iota'
+                Monarch::$paths->localData . '/iota'
             );
         }
 
@@ -44,7 +44,7 @@ class Context {
         string $name,
         string|Dir $dir
     ): Repository {
-        if(is_string($dir)) {
+        if (is_string($dir)) {
             $dir = Atlas::dir($dir);
         }
 

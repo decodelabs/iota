@@ -13,16 +13,16 @@ use DecodeLabs\Atlas\Dir;
 use DecodeLabs\Coercion;
 use DecodeLabs\Exceptional;
 use DecodeLabs\Hatch;
-use DecodeLabs\Hatch\Representation\StaticExpression as StaticExpressionRepresentation;
 use DecodeLabs\Hatch\Proxy\StaticExpression as StaticExpressionProxy;
+use DecodeLabs\Hatch\Representation\StaticExpression as StaticExpressionRepresentation;
 use Generator;
 use Throwable;
 
-class Repository {
-
-    protected(set) string $name;
-    protected(set) Dir $dir;
-    protected(set) bool $mutable;
+class Repository
+{
+    public protected(set) string $name;
+    public protected(set) Dir $dir;
+    public protected(set) bool $mutable;
 
     public function __construct(
         string $name,
@@ -41,7 +41,7 @@ class Repository {
     ): bool {
         try {
             $this->checkKey($key);
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             return false;
         }
 
@@ -52,7 +52,7 @@ class Repository {
         string $key,
         string $code
     ): void {
-        if(!$this->mutable) {
+        if (!$this->mutable) {
             throw Exceptional::Runtime(
                 'Iota repository \'' . $this->name . '\' is read only'
             );
@@ -89,7 +89,7 @@ class Repository {
 
         $file = $this->dir->getFile($key);
 
-        if(!$file->exists()) {
+        if (!$file->exists()) {
             return null;
         }
 
@@ -99,7 +99,7 @@ class Repository {
     public function remove(
         string $key
     ): void {
-        if(!$this->mutable) {
+        if (!$this->mutable) {
             throw Exceptional::Runtime(
                 'Iota repository \'' . $this->name . '\' is read only'
             );
@@ -109,14 +109,14 @@ class Repository {
 
         $file = $this->dir->getFile($key);
 
-        if($file->exists()) {
+        if ($file->exists()) {
             $file->delete();
         }
     }
 
     public function purge(): void
     {
-        if(!$this->mutable) {
+        if (!$this->mutable) {
             throw Exceptional::Runtime(
                 'Iota repository \'' . $this->name . '\' is read only'
             );
@@ -141,7 +141,7 @@ class Repository {
 
         $file = $this->dir->getFile($key);
 
-        if(!$file->exists()) {
+        if (!$file->exists()) {
             throw Exceptional::NotFound(
                 'Iota repository \'' . $this->name . '\' does not contain \'' . $key . '\''
             );
@@ -157,7 +157,7 @@ class Repository {
 
         $file = $this->dir->getFile($key);
 
-        if(!$file->exists()) {
+        if (!$file->exists()) {
             throw Exceptional::NotFound(
                 'Iota repository \'' . $this->name . '\' does not contain \'' . $key . '\''
             );
@@ -180,7 +180,7 @@ class Repository {
 
         try {
             return Coercion::asType($output, $type);
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             throw Exceptional::UnexpectedValue(
                 message: 'Iota repository \'' . $this->name . '\' returned unexpected value for \'' . $key . '\': ' . $e->getMessage(),
                 data: $output
