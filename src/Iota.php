@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace DecodeLabs;
 
-use DecodeLabs\Atlas;
 use DecodeLabs\Atlas\Dir;
 use DecodeLabs\Iota\Repository;
 use DecodeLabs\Kingdom\PureService;
 use DecodeLabs\Kingdom\PureServiceTrait;
-use DecodeLabs\Monarch;
 
 class Iota implements PureService
 {
