@@ -7,16 +7,19 @@
 
 declare(strict_types=1);
 
-namespace DecodeLabs\Iota;
+namespace DecodeLabs;
 
 use DecodeLabs\Atlas;
 use DecodeLabs\Atlas\Dir;
-use DecodeLabs\Iota;
+use DecodeLabs\Iota\Repository;
+use DecodeLabs\Kingdom\PureService;
+use DecodeLabs\Kingdom\PureServiceTrait;
 use DecodeLabs\Monarch;
-use DecodeLabs\Veneer;
 
-class Context
+class Iota implements PureService
 {
+    use PureServiceTrait;
+
     public protected(set) Dir $staticDir;
     public protected(set) Dir $dynamicDir;
 
@@ -25,14 +28,14 @@ class Context
         ?Dir $dynamicDir = null
     ) {
         if ($staticDir === null) {
-            $staticDir = Atlas::dir(
-                Monarch::$paths->run . '/.iota'
+            $staticDir = Atlas::getDir(
+                Monarch::getPaths()->run . '/.iota'
             );
         }
 
         if ($dynamicDir === null) {
-            $dynamicDir = Atlas::dir(
-                Monarch::$paths->localData . '/iota'
+            $dynamicDir = Atlas::getDir(
+                Monarch::getPaths()->localData . '/iota'
             );
         }
 
@@ -45,7 +48,7 @@ class Context
         string|Dir $dir
     ): Repository {
         if (is_string($dir)) {
-            $dir = Atlas::dir($dir);
+            $dir = Atlas::getDir($dir);
         }
 
         return new Repository($name, $dir);
@@ -71,9 +74,3 @@ class Context
         );
     }
 }
-
-// Register the Veneer facade
-Veneer\Manager::getGlobalManager()->register(
-    Context::class,
-    Iota::class
-);

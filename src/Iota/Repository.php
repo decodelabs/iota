@@ -48,6 +48,14 @@ class Repository
         return $this->dir->getFile($key)->exists();
     }
 
+    public function getTime(
+        string $key
+    ): ?int {
+        $this->checkKey($key);
+        $file = $this->dir->getFile($key);
+        return $file->getLastModified();
+    }
+
     public function store(
         string $key,
         string $code

@@ -28,14 +28,17 @@ Load a repository:
 ```php
 use DecodeLabs\Iota;
 
+// Get service
+$iota = new Iota();
+
 // Load manually
-$repo = Iota::load('name', '/path/to/repo');
+$repo = $iota->load('name', '/path/to/repo');
 
 // Load an app-level repository only writable in dev mode
-$repo = Iota::loadStatic('name');
+$repo = $iota->loadStatic('name');
 
 // Load a writable app-level repository
-$repo = Iota::loadDynamic('name');
+$repo = $iota->loadDynamic('name');
 ```
 
 Then you can store and retrieve code:
