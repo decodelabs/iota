@@ -15,6 +15,8 @@ Iota provides a simple mechanism for storing, retrieving and loading generated c
 
 ## Installation
 
+This package requires PHP 8.4 or higher.
+
 Install via Composer:
 
 ```bash
