@@ -2,12 +2,14 @@
     "name": "decodelabs/iota",
     "description": "Discrete, dependable generated code repository",
     "type": "library",
-    "keywords": [ ],
+    "keywords": [],
     "license": "MIT",
-    "authors": [ {
+    "authors": [
+        {
             "name": "Tom Wright",
             "email": "tom@inflatablecookie.com"
-        } ],
+        }
+    ],
     "require": {
         "php": "^8.4",
 
@@ -19,6 +21,7 @@
         "decodelabs/monarch": "^0.2"
     },
     "require-dev": {
+        "decodelabs/chorus": "^0.1",
         "decodelabs/genesis": "^0.14",
         "decodelabs/phpstan-decodelabs": "^0.7.0"
     },
